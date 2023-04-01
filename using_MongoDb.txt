@@ -1,0 +1,789 @@
+ use my_first_db
+
+ db.createCollection("students")
+
+ db.students.insert({name: "Tyrion Lannister", home_state: "CA", lucky_number: 7, birthday: {month: 4, day: 7, year:1990}})
+ db.students.insert({name: "Brandon Stark", home_state: "WA", lucky_number: 3, birthday: {month: 1, day: 3, year:2001}})
+db.students.insert({name: "Theon Greyjoy", home_state: "WA", lucky_number: 2, birthday: {month: 5, day: 25, year:1995}})
+db.students.insert({name: "Brienne Tarth", home_state: "CA", lucky_number: 5, birthday: {month: 10, day: 31, year:1991}})
+db.students.insert({name: "Danaerys Targaryen", home_state: "CA", lucky_number: 13, birthday: {month: 2, day: 29, year:1996}})
+
+  db.students.find().pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        }
+}
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        }
+}
+{
+        "_id" : ObjectId("64257131c7689f8694ea90e2"),
+        "name" : "Theon Greyjoy",
+        "home_state" : "WA",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 5,
+                "day" : 25,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("64257176c7689f8694ea90e3"),
+        "name" : "Brienne Tarth",
+        "home_state" : "CA",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 10,
+                "day" : 31,
+                "year" : 1991
+        }
+}
+{
+        "_id" : ObjectId("642571d3c7689f8694ea90e4"),
+        "name" : "Danaerys Targaryen",
+        "home_state" : "CA",
+        "lucky_number" : 13,
+        "birthday" : {
+                "month" : 2,
+                "day" : 29,
+                "year" : 1996
+        }
+}
+
+ db.students.find({lucky_number: {$gt: 3}}).pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        }
+}
+{
+        "_id" : ObjectId("64257176c7689f8694ea90e3"),
+        "name" : "Brienne Tarth",
+        "home_state" : "CA",
+        "lucky_number" : 5, }
+
+db.students.find({lucky_number: {$lte: 10}}).pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        }
+}
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        }
+}
+{
+        "_id" : ObjectId("64257131c7689f8694ea90e2"),
+        "name" : "Theon Greyjoy",
+        "home_state" : "WA",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 5,
+                "day" : 25,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("64257176c7689f8694ea90e3"),
+        "name" : "Brienne Tarth",
+        "home_state" : "CA",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 10,
+                "day" : 31,
+                "year" : 1991
+        }
+}
+
+db.students.find({$and: [{lucky_number:{$gte: 1}},{lucky_number: {$lte: 9}}]}).pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        }
+}
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        }
+}
+{
+        "_id" : ObjectId("64257131c7689f8694ea90e2"),
+        "name" : "Theon Greyjoy",
+        "home_state" : "WA",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 5,
+                "day" : 25,
+                "year" : 1995
+        }
+}
+{
+        "_id" : ObjectId("64257176c7689f8694ea90e3"),
+        "name" : "Brienne Tarth",
+        "home_state" : "CA",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 10,
+                "day" : 31,
+                "year" : 1991
+        }
+}
+
+ db.students.updateMany({},{$set: {interests: ['coding','brunch','MongoDB']}})
+{ "acknowledged" : true, "matchedCount" : 5, "modifiedCount" : 5 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB"
+        ]
+}
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB"
+        ]
+}
+{
+        "_id" : ObjectId("64257131c7689f8694ea90e2"),
+        "name" : "Theon Greyjoy",
+        "home_state" : "WA",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 5,
+                "day" : 25,
+                "year" : 1995
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB"
+        ]
+}
+{
+        "_id" : ObjectId("64257176c7689f8694ea90e3"),
+        "name" : "Brienne Tarth",
+        "home_state" : "CA",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 10,
+                "day" : 31,
+                "year" : 1991
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB"
+        ]
+}
+{
+        "_id" : ObjectId("642571d3c7689f8694ea90e4"),
+        "name" : "Danaerys Targaryen",
+        "home_state" : "CA",
+        "lucky_number" : 13,
+        "birthday" : {
+                "month" : 2,
+                "day" : 29,
+                "year" : 1996
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB"
+        ]
+}
+
+db.students.updateOne({name: "Tyrion Lannister"}, {$push : {interests: 'reading books'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.find(name:"Tyrion Lannister").pretty()
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:21
+> db.students.find({name:"Tyrion Lannister"}).pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "reading books"
+        ]
+}
+> db.students.updateOne({name: "Brandon Stark"}, {$push: {interests: 'climbing'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.updateOne({name: "Theon Greyjoy"}, {$push: {interests: 'flirting with women'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.updateOne({name: "Brienne Tarth"}, {$push: {interests: 'fencing'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.updateOne({name: "Danaerys Targaryen"}, {$push: {interests: 'riding of dragons'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "reading books"
+        ]
+}
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ]
+}
+{
+        "_id" : ObjectId("64257131c7689f8694ea90e2"),
+        "name" : "Theon Greyjoy",
+        "home_state" : "WA",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 5,
+                "day" : 25,
+                "year" : 1995
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "flirting with women"
+        ]
+}
+{
+        "_id" : ObjectId("64257176c7689f8694ea90e3"),
+        "name" : "Brienne Tarth",
+        "home_state" : "CA",
+        "lucky_number" : 5,
+        "birthday" : {
+                "month" : 10,
+                "day" : 31,
+                "year" : 1991
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "fencing"
+        ]
+}
+{
+        "_id" : ObjectId("642571d3c7689f8694ea90e4"),
+        "name" : "Danaerys Targaryen",
+        "home_state" : "CA",
+        "lucky_number" : 13,
+        "birthday" : {
+                "month" : 2,
+                "day" : 29,
+                "year" : 1996
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "riding of dragons"
+        ]
+}
+
+db.students.updateOne({name: "Tyrion Lannister"}, {$push: {interests: 'taxes'}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.find({name: "Tyrion Lannister"}).pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "reading books",
+                "taxes"
+        ]
+}
+
+db.students.updateOne({name: "Tyrion Lannister"}, {$pop: {interests: (1)}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.students.find({name: "Tyrion Lannister"}).pretty()
+{
+        "_id" : ObjectId("6425706ec7689f8694ea90e0"),
+        "name" : "Tyrion Lannister",
+        "home_state" : "CA",
+        "lucky_number" : 7,
+        "birthday" : {
+                "month" : 4,
+                "day" : 7,
+                "year" : 1990
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "reading books"
+        ]
+}
+
+db.students.remove({home_state:"CA"})
+WriteResult({ "nRemoved" : 3 })
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ]
+}
+{
+        "_id" : ObjectId("64257131c7689f8694ea90e2"),
+        "name" : "Theon Greyjoy",
+        "home_state" : "WA",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 5,
+                "day" : 25,
+                "year" : 1995
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "flirting with women"
+        ]
+}
+
+ db.students.remove({name: "Theon Greyjoy"})
+WriteResult({ "nRemoved" : 1 })
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ]
+}
+
+ db.students.remove({lucky_number: {$gt: 5}}, true)
+WriteResult({ "nRemoved" : 1 })
+> db.students.find({lucky_number: {$gt: 5}}).pretty()
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b3"),
+        "name" : "Barristan Selmy",
+        "home_state" : "WA",
+        "lucky_number" : 10,
+        "birthday" : {
+                "month" : 6,
+                "day" : 28,
+                "year" : 1963
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "C++",
+                "fencing"
+        ]
+}
+
+db.students.updateMany({},{$set: {number_of_belts: 0}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ],
+        "number_of_belts" : 0
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b2"),
+        "name" : "Petyr Baelish",
+        "home_state" : "CA",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 12,
+                "day" : 23,
+                "year" : 1978
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "Python",
+                "deception"
+        ],
+        "number_of_belts" : 0
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b3"),
+        "name" : "Barristan Selmy",
+        "home_state" : "WA",
+        "lucky_number" : 10,
+        "birthday" : {
+                "month" : 6,
+                "day" : 28,
+                "year" : 1963
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "C++",
+                "fencing"
+        ],
+        "number_of_belts" : 0
+}
+
+
+db.students.updateMany({home_state: "WA"},{$inc: {number_of_belts: 1}})
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ],
+        "number_of_belts" : 1
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b2"),
+        "name" : "Petyr Baelish",
+        "home_state" : "CA",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 12,
+                "day" : 23,
+                "year" : 1978
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "Python",
+                "deception"
+        ],
+        "number_of_belts" : 0
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b3"),
+        "name" : "Barristan Selmy",
+        "home_state" : "WA",
+        "lucky_number" : 10,
+        "birthday" : {
+                "month" : 6,
+                "day" : 28,
+                "year" : 1963
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "C++",
+                "fencing"
+        ],
+        "number_of_belts" : 1
+}
+
+ db.students.updateMany({},{$rename: {"number_of_belts": "belts_earned"}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "lucky_number" : 3,
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ],
+        "belts_earned" : 1
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b2"),
+        "name" : "Petyr Baelish",
+        "home_state" : "CA",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 12,
+                "day" : 23,
+                "year" : 1978
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "Python",
+                "deception"
+        ],
+        "belts_earned" : 0
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b3"),
+        "name" : "Barristan Selmy",
+        "home_state" : "WA",
+        "lucky_number" : 10,
+        "birthday" : {
+                "month" : 6,
+                "day" : 28,
+                "year" : 1963
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "C++",
+                "fencing"
+        ],
+        "belts_earned" : 1
+}
+
+db.students.updateMany({}, {$unset: {lucky_number:""}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ],
+        "belts_earned" : 1
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b2"),
+        "name" : "Petyr Baelish",
+        "home_state" : "CA",
+        "birthday" : {
+                "month" : 12,
+                "day" : 23,
+                "year" : 1978
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "Python",
+                "deception"
+        ],
+        "belts_earned" : 0
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b3"),
+        "name" : "Barristan Selmy",
+        "home_state" : "WA",
+        "birthday" : {
+                "month" : 6,
+                "day" : 28,
+                "year" : 1963
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "C++",
+                "fencing"
+        ],
+        "belts_earned" : 1
+}
+
+db.students.updateMany({}, {$currentDate: { updated_on: {$type: "date"}}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("642570d6c7689f8694ea90e1"),
+        "name" : "Brandon Stark",
+        "home_state" : "WA",
+        "birthday" : {
+                "month" : 1,
+                "day" : 3,
+                "year" : 2001
+        },
+        "interests" : [
+                "coding",
+                "brunch",
+                "MongoDB",
+                "climbing"
+        ],
+        "belts_earned" : 1,
+        "updated_on" : ISODate("2023-04-01T18:46:07.904Z")
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b2"),
+        "name" : "Petyr Baelish",
+        "home_state" : "CA",
+        "birthday" : {
+                "month" : 12,
+                "day" : 23,
+                "year" : 1978
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "Python",
+                "deception"
+        ],
+        "belts_earned" : 0,
+        "updated_on" : ISODate("2023-04-01T18:46:07.904Z")
+}
+{
+        "_id" : ObjectId("6426433f02afdca39a9c91b3"),
+        "name" : "Barristan Selmy",
+        "home_state" : "WA",
+        "birthday" : {
+                "month" : 6,
+                "day" : 28,
+                "year" : 1963
+        },
+        "interests" : [
+                "coding",
+                "dinner",
+                "C++",
+                "fencing"
+        ],
+        "belts_earned" : 1,
+        "updated_on" : ISODate("2023-04-01T18:46:07.904Z")
+}
